@@ -1,0 +1,72 @@
+[
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-28T08:00:00",
+    "DepartureTime": "2025-03-28T17:00:00"
+  },
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-27T09:30:00",
+    "DepartureTime": "2025-03-27T18:00:00"
+  },
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-26T09:30:00",
+    "DepartureTime": "2025-03-26T18:00:00"
+  },
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-25T09:30:00",
+    "DepartureTime": "2025-03-25T18:00:00"
+  },
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-24T09:30:00",
+    "DepartureTime": "2025-03-24T18:00:00"
+  },
+  {
+    "EmployeeName": "\u041C\u0443\u0437\u0430\u0444\u0444\u0430\u0440",
+    "ArrivalTime": "2025-03-26T10:30:00",
+    "DepartureTime": "2025-03-26T19:00:00"
+  },
+  {
+    "EmployeeName": "\u041C\u0443\u0437\u0430\u0444\u0444\u0430\u0440",
+    "ArrivalTime": "2025-03-27T10:30:00",
+    "DepartureTime": "2025-03-27T19:00:00"
+  },
+  {
+    "EmployeeName": "\u0410\u0441\u0438\u043B\u044C\u0431\u0435\u043A",
+    "ArrivalTime": "2025-03-26T12:49:29.0912881+05:00",
+    "DepartureTime": "2025-03-26T12:51:12.8701482+05:00"
+  },
+  {
+    "EmployeeName": "\u0410\u0441\u0438\u043B\u044C\u0431\u0435\u043A",
+    "ArrivalTime": "2025-03-26T12:51:26.2676883+05:00",
+    "DepartureTime": "2025-03-26T12:51:29.707757+05:00"
+  },
+  {
+    "EmployeeName": "\u0410\u0441\u0438\u043B\u044C\u0431\u0435\u043A",
+    "ArrivalTime": "2025-03-26T12:51:31.3431273+05:00",
+    "DepartureTime": "2025-03-26T12:51:36.7739145+05:00"
+  },
+  {
+    "EmployeeName": "\u0410\u0441\u0438\u043B\u044C\u0431\u0435\u043A",
+    "ArrivalTime": "2025-03-26T12:51:38.3502475+05:00",
+    "DepartureTime": "2025-03-26T12:51:40.9080721+05:00"
+  },
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-26T13:11:55.9942756+05:00",
+    "DepartureTime": "2025-03-26T13:11:59.9532833+05:00"
+  },
+  {
+    "EmployeeName": "\u041C\u0443\u0437\u0430\u0444\u0444\u0430\u0440",
+    "ArrivalTime": "2025-03-26T13:12:35.724599+05:00",
+    "DepartureTime": "2025-03-26T13:12:36.6063418+05:00"
+  },
+  {
+    "EmployeeName": "\u0424\u0430\u0438\u043C",
+    "ArrivalTime": "2025-03-26T14:09:25.3969822+05:00",
+    "DepartureTime": "2025-03-26T14:09:26.2359908+05:00"
+  }
+]

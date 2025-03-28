@@ -1,0 +1,44 @@
+[
+  {
+    "Id": "001",
+    "Name": "Асильбек",
+    "Password": "1234",
+    "Role": "Admin"
+  },
+  {
+    "Id": "002",
+    "Name": "Музаффар",
+    "Password": "qwerty",
+    "Role": "User"
+  },
+  {
+    "Id": "003",
+    "Name": "Фаим",
+    "Password": "123",
+    "Role": "Admin"
+  },
+  {
+    "Id": "004",
+    "Name": "Тимур",
+    "Password": "123",
+    "Role": "Admin"
+  },
+  {
+    "Id": "005",
+    "Name": "Шахислам",
+    "Password": "123",
+    "Role": "Admin"
+  },
+  {
+    "Id": "006",
+    "Name": "Маджид",
+    "Password": "123",
+    "Role": "Admin"
+  },
+  {
+    "Id": "007",
+    "Name": "Диёр",
+    "Password": "123",
+    "Role": "User"
+  }
+]

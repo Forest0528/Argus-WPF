@@ -1,0 +1,80 @@
+﻿<Window x:Class="Argus_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Argus Dashboard"
+        Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Background="White">
+
+    <!-- 🎨 Общие стили для бокового меню -->
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Margin" Value="0 5"/>
+            <Setter Property="Padding" Value="10 8"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#2f3640"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter Margin="10 5"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#dcdde1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Красная кнопка выхода -->
+        <Style x:Key="LogoutButtonStyle" BasedOn="{StaticResource MenuButtonStyle}" TargetType="Button">
+            <Setter Property="Foreground" Value="Red"/>
+        </Style>
+    </Window.Resources>
+
+    <!-- Основная сетка -->
+    <Grid>
+
+        <!-- 📐 Две колонки: меню слева + контент справа -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <!-- Левая панель -->
+            <ColumnDefinition Width="*"/>
+            <!-- Контент -->
+        </Grid.ColumnDefinitions>
+
+        <!-- 🎛️ Боковое меню -->
+        <StackPanel x:Name="MenuPanel" Background="#f5f6fa" Grid.Column="0" Margin="20">
+
+            <Image x:Name="LogoImage" Height="74" Width="156"/>
+
+            <Button Content="📊 Dashboard"
+        Style="{StaticResource MenuButtonStyle}"
+        Click="Dashboard_Click" FontFamily="Rod" />
+            <Button Content="🧾 Сотрудники" Style="{StaticResource MenuButtonStyle}" />
+            <Button Content="📋 Задачи"
+        Style="{StaticResource MenuButtonStyle}"
+        Click="Tasks_Click" />
+            <Button Content="⚙️ Настройки" Style="{StaticResource MenuButtonStyle}" Margin="0 20 0 0"/>
+            <Button Content="🔴 Выйти" Style="{StaticResource LogoutButtonStyle}" Margin="0 10 0 0"/>
+        </StackPanel>
+
+        <TextBlock x:Name="PageTitle"
+           Grid.Column="1"
+           Margin="20,20,0,10"
+           FontSize="24"
+           FontWeight="Bold"
+           Foreground="Black"
+           Text="Главная" />
+
+        <!-- 🔄 Сюда будут подгружаться страницы -->
+        <Frame x:Name="MainFrame" Grid.Column="1" NavigationUIVisibility="Hidden"/>
+    </Grid>
+</Window>

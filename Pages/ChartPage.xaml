@@ -1,0 +1,19 @@
+﻿<Page x:Class="Argus_WPF.Pages.ChartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:lc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+      Title="ChartPage" Height="460" Width="960">
+
+    <Grid Background="White">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel Margin="20">
+                <TextBlock Text="LiveCharts 0.9.7 Example" 
+                           FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                
+
+                <!-- Остальной контент ... -->
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
