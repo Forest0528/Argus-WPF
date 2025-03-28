@@ -57,7 +57,7 @@
 
             <Button Content="📊 Dashboard"
         Style="{StaticResource MenuButtonStyle}"
-        Click="Dashboard_Click" FontFamily="Rod" />
+        Click="Dashboard_Click" FontFamily="Segoe UI Symbol" />
             <Button Content="🧾 Сотрудники" Style="{StaticResource MenuButtonStyle}" />
             <Button Content="📋 Задачи"
         Style="{StaticResource MenuButtonStyle}"
