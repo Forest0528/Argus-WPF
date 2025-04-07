@@ -1,4 +1,5 @@
-﻿using Argus_WPF.Pages;
+﻿using Argus_WPF.Models;
+using Argus_WPF.Pages;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -18,18 +19,22 @@ namespace Argus_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        private Employee currentUser;
+
+        public MainWindow(Employee emp)
         {
             InitializeComponent();
+            currentUser = emp;
+            Title = $"Argus — {currentUser.Name} ({currentUser.Role})";
             MainFrame.Navigate(new EmployeePage());
-            // Получаем байты из Resources
-            byte[] logoBytes = Properties.Resources.Argus_logo;
+            //// Получаем байты из Resources
+            //byte[] logoBytes = Properties.Resources.Argus_logo;
 
-            // Конвертим в BitmapImage
-            var bmp = ConvertBytesToImage(logoBytes);
+            //// Конвертим в BitmapImage
+            //var bmp = ConvertBytesToImage(logoBytes);
 
-            // Присваиваем
-            LogoImage.Source = bmp;
+            //// Присваиваем
+            //LogoImage.Source = bmp;
         }
 
         private void OpenEmployeePage(object sender, RoutedEventArgs e)

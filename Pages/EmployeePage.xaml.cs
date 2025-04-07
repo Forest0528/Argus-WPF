@@ -1,28 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.IO;
+using System.Text.Json;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Argus_WPF.Models; // где у тебя класс Employee
 
 namespace Argus_WPF.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для EmployeePage.xaml
-    /// </summary>
     public partial class EmployeePage : Page
     {
         public EmployeePage()
         {
             InitializeComponent();
+            LoadEmployees();
+        }
+
+        private void LoadEmployees()
+        {
+            string path = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "Data",
+                "employees.json"
+            );
+            if (!File.Exists(path))
+            {
+                // Файл не найден — покажем пустую таблицу
+                dataGridEmployees.ItemsSource = new List<Employee>();
+                return;
+            }
+
+            try
+            {
+                string json = File.ReadAllText(path);
+                var employees = JsonSerializer.Deserialize<List<Employee>>(json)
+                                ?? new List<Employee>();
+
+                // Отображаем в таблице
+                dataGridEmployees.ItemsSource = employees;
+            }
+            catch (Exception ex)
+            {
+                // Если ошибка чтения или десериализации
+                dataGridEmployees.ItemsSource = new List<Employee>();
+                System.Windows.MessageBox.Show($"Ошибка загрузки сотрудников: {ex.Message}");
+            }
         }
     }
 }

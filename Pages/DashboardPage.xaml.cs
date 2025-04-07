@@ -44,12 +44,12 @@ namespace Argus_WPF.Pages
             new LineSeries
             {
                 Title = "Пример",
-                Values = new ChartValues<double> {3, 5, 7, 4, 5, 6}
+                Values = new ChartValues<double> {4, 4, 3, 4, 5, 6}
             },
             new ColumnSeries
             {
                 Title = "Колонки",
-                Values = new ChartValues<double> {1, 3, 2, 4, 7, 3}
+                Values = new ChartValues<double> {1, 5, 4, 2, 1, 3}
             }
         };
 
