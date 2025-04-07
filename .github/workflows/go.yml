@@ -1,0 +1,42 @@
+name: Simple Git Pull Deployment
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  SERVER_USERNAME: root
+  SERVER_IP: 168.119.255.188
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Git pull on server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.SERVER_IP }}
+          username: ${{ env.SERVER_USERNAME }}
+          key: ${{ env.SSH_PRIVATE_KEY }}
+          script: |
+            set -e  # Выход при ошибке
+            echo "=== Deploying to server ==="
+            echo "Current dir: $(pwd)"
+            
+            mkdir -p /root/src/argus
+            cd /root/src/argus || exit 1
+            
+            if [ ! -d "Argus-WPF" ]; then
+              echo "Cloning repository..."
+              git clone https://github.com/Forest0528/Argus-WPF.git || exit 1
+            else
+              echo "Updating repository..."
+              cd Argus-WPF && git pull origin master || exit 1
+            fi
+            
+            echo "=== Deployment successful! ==="
