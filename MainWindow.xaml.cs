@@ -1,95 +1,103 @@
 ﻿using Argus_WPF.Models;
 using Argus_WPF.Pages;
+using Argus_WPF.UserControls;
 using System.IO;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Argus_WPF
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        private Employee currentUser;
+        private readonly Employee currentUser;
 
         public MainWindow(Employee emp)
         {
             InitializeComponent();
             currentUser = emp;
+
             Title = $"Argus — {currentUser.Name} ({currentUser.Role})";
-            MainFrame.Navigate(new EmployeePage());
-            //// Получаем байты из Resources
-            //byte[] logoBytes = Properties.Resources.Argus_logo;
+            PageTitle.Text = "Главная";
+            MainFrame.Navigate(new DashboardPage(currentUser));
+        }
 
-            //// Конвертим в BitmapImage
-            //var bmp = ConvertBytesToImage(logoBytes);
-
-            //// Присваиваем
-            //LogoImage.Source = bmp;
+        private void Dashboard_Click(object sender, RoutedEventArgs e)
+        {
+            PageTitle.Text = "Главная";
+            MainFrame.Navigate(new DashboardPage(currentUser));
         }
 
         private void OpenEmployeePage(object sender, RoutedEventArgs e)
         {
+            PageTitle.Text = "Сотрудники";
             MainFrame.Navigate(new EmployeePage());
         }
 
         private void OpenTaskManagerPage(object sender, RoutedEventArgs e)
         {
+            PageTitle.Text = "Задачи";
             MainFrame.Navigate(new TaskManagerPage());
         }
-
-        private void Dashboard_Click(object sender, RoutedEventArgs e)
+        private void OpenSettingsPage(object sender, RoutedEventArgs e)
         {
-            MainFrame.Navigate(new DashboardPage());
-            PageTitle.Text = "Главная";
+            PageTitle.Text = "Настройки";
+            MainFrame.Navigate(new SettingsPage());
         }
 
-        private BitmapImage ConvertBytesToImage(byte[] imageData)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            using (var ms = new MemoryStream(imageData))
+            FooterName.Text = currentUser.Name;
+            FooterRole.Text = currentUser.Role;
+
+            if (!string.IsNullOrEmpty(currentUser.AvatarUrl))
             {
-                var bmp = new BitmapImage();
-                bmp.BeginInit();
-                bmp.CacheOption = BitmapCacheOption.OnLoad;
-                bmp.StreamSource = ms;
-                bmp.EndInit();
-                bmp.Freeze(); // чтобы использовать из разных потоков
-                return bmp;
+                try
+                {
+                    FooterAvatar.Fill = new ImageBrush(new BitmapImage(new Uri(currentUser.AvatarUrl)))
+                    {
+                        Stretch = Stretch.UniformToFill
+                    };
+                }
+                catch
+                {
+                    FooterAvatar.Fill = new SolidColorBrush(Colors.Gray);
+                }
+            }
+            else
+            {
+                FooterAvatar.Fill = new SolidColorBrush(Colors.Gray);
             }
         }
 
-        private void Tasks_Click(object sender, RoutedEventArgs e)
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string tokenPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                    ".credentials",
+                    "ArgusWPF.GoogleOAuth");
+
+                if (Directory.Exists(tokenPath))
+                {
+                    Directory.Delete(tokenPath, true);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка при выходе: {ex.Message}", "Logout Error");
+            }
+
+            var loginWindow = new LoginWindow();
+            loginWindow.Show();
+            this.Close();
+        }
+        private void Projects_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new TaskManagerPage());
-            NavigateTo(new TaskManagerPage(), "Задачи", sender as Button);
-        }
-
-        private void NavigateTo(Page page, string title, Button selectedButton)
-        {
-            MainFrame.Navigate(page);
-            PageTitle.Text = title;
-
-            // Подсветка активной кнопки
-            ResetMenuButtonsStyle();
-            selectedButton.Background = new SolidColorBrush(Color.FromRgb(220, 230, 250)); // светлый оттенок
-        }
-
-        private void ResetMenuButtonsStyle()
-        {
-            foreach (var child in MenuPanel.Children)
-            {
-                if (child is Button btn)
-                    btn.ClearValue(Button.BackgroundProperty);
-            }
+            PageTitle.Text = "Проекты";
         }
 
     }

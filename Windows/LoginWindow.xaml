@@ -1,32 +1,125 @@
 ﻿<Window x:Class="Argus_WPF.LoginWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Авторизация"
-        Height="171" Width="320"
-        WindowStartupLocation="CenterScreen">
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        Title="Вход в систему" 
+        WindowStartupLocation="CenterScreen"
+        Width="800" Height="450" 
+        Background="#FFFFFF"
+        ResizeMode="NoResize">
 
-        <!-- Поле ввода логина -->
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
-            <TextBlock Text="Логин:" Width="70" VerticalAlignment="Center"/>
-            <TextBox x:Name="txtLogin" Width="200"/>
-        </StackPanel>
+    <Grid>
+        <!-- Две колонки: левая (синяя) и правая (белая) -->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
 
-        <!-- Поле ввода пароля -->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,10">
-            <TextBlock Text="Пароль:" Width="70" VerticalAlignment="Center"/>
-            <PasswordBox x:Name="txtPassword" Width="200"/>
-        </StackPanel>
+        <!-- Левая часть: цветной фон + лого + название -->
+        <Border Grid.Column="0">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#4A86FC" Offset="0"/>
+                    <GradientStop Color="#3C6CE2" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
 
-        <!-- Кнопки -->
-        <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Center">
-            <Button x:Name="btnLogin" Content="Войти" Click="btnLogin_Click" Margin="0,0,10,0"/>
-            <Button x:Name="btnCancel" Content="Отмена" Click="btnCancel_Click"/>
-        </StackPanel>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <!-- Заменить на реальную иконку/лого (Image) -->
+                <Ellipse Width="80" Height="80" Fill="White" Margin="0,0,0,20" />
+
+                <!-- Название приложения -->
+                <TextBlock Text="Argus" 
+                           FontSize="24" 
+                           FontWeight="Bold" 
+                           Foreground="White" 
+                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Система отчёта сотрудников"
+                           FontSize="14"
+                           Foreground="White"
+                           Margin="0,5,0,0"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Правая часть: форма логина на белом фоне -->
+        <Border Grid.Column="1" Background="White">
+            <StackPanel Margin="50,0,50,0" VerticalAlignment="Center">
+
+                <!-- Заголовок -->
+                <TextBlock Text="Вход в аккаунт"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Margin="0,0,0,20" />
+
+                <!-- Поле ID (или Email) -->
+                <TextBlock Text="ID сотрудника:"
+                           FontSize="14" 
+                           Margin="0,0,0,5" />
+                <TextBox x:Name="txtLogin"
+                         Height="34"
+                         FontSize="14"
+                         Padding="8"
+                         Margin="0,0,0,15"
+                         KeyDown="txtLogin_KeyDown" />
+
+                <!-- Поле пароля -->
+                <TextBlock Text="Пароль:"
+                           FontSize="14" 
+                           Margin="0,0,0,5" />
+                <PasswordBox x:Name="txtPassword"
+                             Height="34"
+                             Padding="8"
+                             Margin="0,0,0,10"
+                             KeyDown="txtPassword_KeyDown" />
+
+                <!-- Ссылка "Забыли пароль?" -->
+                <TextBlock Text="Забыли пароль?"
+                           Foreground="#3C6CE2"
+                           Cursor="Hand"
+                           HorizontalAlignment="Left"
+                           Margin="0,0,0,15"
+                           MouseLeftButtonDown="ForgotPassword_Click" />
+
+                <!-- Кнопка ВОЙТИ -->
+                <Button x:Name="btnLogin"
+                        Content="Войти"
+                        Background="#4A86FC"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        FontSize="14"
+                        Height="36"
+                        Margin="0,0,0,10"
+                        Click="btnLogin_Click"/>
+
+                <!-- Кнопка "Войти через Google" -->
+                <Button x:Name="btnGoogleLogin"
+                        Content="Войти через Google"
+                        Background="#FFFFFF"
+                        Foreground="#4A86FC"
+                        BorderBrush="#4A86FC"
+                        BorderThickness="2"
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        Height="36"
+                        Margin="0,0,0,10"
+                        Click="btnGoogleLogin_Click" />
+
+                <!-- Кнопка ОТМЕНА (или Закрыть) -->
+                <Button x:Name="btnCancel"
+                        Content="Отмена"
+                        Background="LightGray"
+                        Foreground="Black"
+                        FontSize="14"
+                        Height="36"
+                        Click="btnCancel_Click" />
+
+                <!-- Ссылка "Регистрация нового сотрудника" (по желанию) -->
+                <TextBlock Text="Регистрация нового сотрудника"
+                           Foreground="#3C6CE2"
+                           Margin="0,15,0,0"
+                           Cursor="Hand"
+                           HorizontalAlignment="Center" />
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

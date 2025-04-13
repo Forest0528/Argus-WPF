@@ -63,9 +63,9 @@ namespace Argus_WPF.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static byte[] Argus_logo {
+        internal static byte[] _16_4x1 {
             get {
-                object obj = ResourceManager.GetObject("Argus logo", resourceCulture);
+                object obj = ResourceManager.GetObject("16@4x1", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -73,9 +73,49 @@ namespace Argus_WPF.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Byte[].
         /// </summary>
-        internal static byte[] аргус_синяя_полоса {
+        internal static byte[] _256_4x {
             get {
-                object obj = ResourceManager.GetObject("аргус синяя полоса", resourceCulture);
+                object obj = ResourceManager.GetObject("256@4x", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] _32_4x {
+            get {
+                object obj = ResourceManager.GetObject("32@4x", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] _48_4x {
+            get {
+                object obj = ResourceManager.GetObject("48@4x", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] _64_4x {
+            get {
+                object obj = ResourceManager.GetObject("64@4x", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] Argus_logo {
+            get {
+                object obj = ResourceManager.GetObject("Argus_logo", resourceCulture);
                 return ((byte[])(obj));
             }
         }

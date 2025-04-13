@@ -1,28 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Argus_WPF.Pages
 {
-    /// <summary>
-    /// Логика взаимодействия для SettingsPage.xaml
-    /// </summary>
     public partial class SettingsPage : Page
     {
         public SettingsPage()
         {
             InitializeComponent();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Загружаем значения настроек уведомлений
+            CheckEmailNotify.IsChecked = Properties.Settings.Default.NotifyEmail;
+            CheckSoundNotify.IsChecked = Properties.Settings.Default.NotifySound;
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            // Сохраняем состояние настроек уведомлений
+            Properties.Settings.Default.NotifyEmail = CheckEmailNotify.IsChecked == true;
+            Properties.Settings.Default.NotifySound = CheckSoundNotify.IsChecked == true;
+            Properties.Settings.Default.Save();
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Сброс настроек уведомлений к состоянию по умолчанию
+            CheckEmailNotify.IsChecked = false;
+            CheckSoundNotify.IsChecked = false;
+
+            Properties.Settings.Default.NotifyEmail = false;
+            Properties.Settings.Default.NotifySound = false;
+            Properties.Settings.Default.Save();
         }
     }
 }

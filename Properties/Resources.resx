@@ -118,10 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Argus logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="16@4x1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\16@4x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="Argus_logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\2@4x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="аргус синяя полоса" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\аргус синяя полоса.svg;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="32@4x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\32@4x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="48@4x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\48@4x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="64@4x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\64@4x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="256@4x" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\256@4x.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

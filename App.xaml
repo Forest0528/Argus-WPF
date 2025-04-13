@@ -1,8 +1,15 @@
 ﻿<Application x:Class="Argus_WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Argus_WPF">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Application.Resources>
-         
+        <!-- Фон страницы -->
+        <SolidColorBrush x:Key="PageBackgroundBrush" Color="#FFEFEFEF"/>
+        <!-- Фон карточки -->
+        <SolidColorBrush x:Key="CardBackgroundBrush" Color="White"/>
+        <!-- Текстовый цвет -->
+        <SolidColorBrush x:Key="PrimaryTextBrush" Color="#333333"/>
+        <!-- Эффект тени карточки -->
+        <DropShadowEffect x:Key="CardShadow" BlurRadius="10" ShadowDepth="2" Color="#AA000000"/>
     </Application.Resources>
+
 </Application>
