@@ -62,14 +62,14 @@
 
             <!-- 📋 Таблица посещаемости -->
             <GroupBox Header="Посещаемость сотрудников">
-                <DataGrid x:Name="EmployeeGrid" Margin="0 10" Height="250"
-                          AutoGenerateColumns="False" IsReadOnly="True"
-                          CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False"
-                          Style="{StaticResource CleanDataGrid}">
+                <DataGrid ItemsSource="{Binding TimeRecords}" Margin="0 10" Height="250"
+          AutoGenerateColumns="False" IsReadOnly="True"
+          CanUserResizeRows="False" CanUserResizeColumns="False" CanUserSortColumns="False"
+          Style="{StaticResource CleanDataGrid}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Сотрудник" Binding="{Binding EmployeeName}" Width="*"/>
-                        <DataGridTextColumn Header="Пришел" Binding="{Binding ArrivalTime, StringFormat=\{0:dd.MM.yy HH:mm\}}" Width="*"/>
-                        <DataGridTextColumn Header="Ушел" Binding="{Binding DepartureTime, StringFormat=\{0:dd.MM.yy HH:mm\}}" Width="*"/>
+                        <DataGridTextColumn Header="Пришел" Binding="{Binding ArrivalTime, StringFormat={}{0:dd.MM.yy HH:mm}}" Width="*"/>
+                        <DataGridTextColumn Header="Ушел" Binding="{Binding DepartureTime, StringFormat={}{0:dd.MM.yy HH:mm}}" Width="*"/>
                         <DataGridTextColumn Header="Отработано" Binding="{Binding HoursWorkedDisplay}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>

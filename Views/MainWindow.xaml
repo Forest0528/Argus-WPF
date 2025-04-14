@@ -1,7 +1,13 @@
-﻿<Window x:Class="Argus_WPF.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Argus" Height="760" Width="1200" Background="#f5f6fa" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+﻿<metro:MetroWindow x:Class="Argus_WPF.Views.MainWindow"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:vm="clr-namespace:Argus_WPF.ViewModels"
+                   Title="Argus"
+                   Height="480" Width="800"
+                   WindowStartupLocation="CenterScreen"
+                   GlowBrush="SteelBlue">
+
 
     <Window.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="Button">
@@ -118,4 +124,4 @@
             <Frame x:Name="MainFrame" Margin="30 60 30 30" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
-</Window>
+</metro:MetroWindow>

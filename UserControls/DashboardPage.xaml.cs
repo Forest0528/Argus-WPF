@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using Argus_WPF.Models;
+using Argus_WPF.ViewModels;
+using CommunityToolkit.Mvvm.Messaging;
+using System;
 using System.Windows.Controls;
-using Argus_WPF.Models;
-using System.Windows.Media.Imaging; // для BitmapImage
+using System.Windows.Media.Imaging;
 using System.Windows;
-using Argus_Project;              // для Visibility
 
 namespace Argus_WPF.UserControls
 {
     public partial class DashboardPage : UserControl
     {
-        private Employee currentUser;
+        private readonly DashboardViewModel _viewModel;
 
         public DashboardPage(Employee user)
         {
             InitializeComponent();
-            currentUser = user;
-            LoadTimeRecords();
-            GreetUser();
+
+            _viewModel = App.AppHost.Services.GetService(typeof(DashboardViewModel)) as DashboardViewModel;
+            this.DataContext = _viewModel;
+
+            GreetUser(user);
         }
 
-        private void GreetUser()
+        private void GreetUser(Employee currentUser)
         {
-            // Пишем имя и роль
             GreetingTextBlock.Text = $"Добро пожаловать, {currentUser.Name} ({currentUser.Role})!";
 
-            // Пробуем загрузить аватар
             if (!string.IsNullOrEmpty(currentUser.AvatarUrl))
             {
                 try
@@ -37,38 +35,8 @@ namespace Argus_WPF.UserControls
                 }
                 catch
                 {
-                    // Если не получилось загрузить, оставим скрытым
                     AvatarImage.Visibility = Visibility.Collapsed;
                 }
-            }
-        }
-
-        private void LoadTimeRecords()
-        {
-            try
-            {
-                string jsonPath = Path.Combine(
-                    AppDomain.CurrentDomain.BaseDirectory,
-                    "Data",
-                    "data.json");
-
-                if (!File.Exists(jsonPath)) return;
-
-                string json = File.ReadAllText(jsonPath);
-                var records = System.Text.Json.JsonSerializer
-                               .Deserialize<List<TimeRecord>>(json);
-
-                // Группируем по последнему визиту каждого сотрудника
-                var latestByEmployee = records?
-                    .GroupBy(r => r.EmployeeName)
-                    .Select(g => g.OrderByDescending(r => r.ArrivalTime).First())
-                    .ToList();
-
-                EmployeeGrid.ItemsSource = latestByEmployee;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Ошибка загрузки данных: {ex.Message}");
             }
         }
     }
