@@ -2,12 +2,12 @@
                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                    xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
-                   xmlns:vm="clr-namespace:Argus_WPF.ViewModels"
                    Title="Argus"
                    Height="480" Width="800"
                    WindowStartupLocation="CenterScreen"
-                   GlowBrush="SteelBlue">
-
+                   GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+                   Background="{DynamicResource MahApps.Brushes.Background}"
+                   Foreground="{DynamicResource MahApps.Brushes.Text}">
 
     <Window.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="Button">
@@ -15,7 +15,7 @@
             <Setter Property="Padding" Value="12 10"/>
             <Setter Property="Margin" Value="0 4"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="Foreground" Value="#2d3436"/>
+            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="HorizontalContentAlignment" Value="Left"/>
             <Setter Property="Cursor" Value="Hand"/>
@@ -33,13 +33,13 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#e6f0ff"/>
+                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.MouseOver.Background}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
 
         <Style x:Key="LogoutButtonStyle" BasedOn="{StaticResource MenuButtonStyle}" TargetType="Button">
-            <Setter Property="Foreground" Value="Red"/>
+            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Error}"/>
         </Style>
     </Window.Resources>
 
@@ -50,77 +50,53 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <StackPanel Background="White" Grid.Column="0" Margin="20">
-            <!-- Logo -->
+        <StackPanel Background="{DynamicResource MahApps.Brushes.Control.Background}" Grid.Column="0" Margin="20">
             <StackPanel Orientation="Horizontal" Margin="0 0 0 30">
-                <Image Width="36" Height="36" Source="https://cdn-icons-png.flaticon.com/512/1256/1256650.png"/>
+                <Ellipse Width="36" Height="36" Fill="Gray"/>
                 <StackPanel Margin="10 0">
-                    <TextBlock Text="Argus" FontWeight="Bold" FontSize="20" Foreground="#2c3e50"/>
-                    <TextBlock Text="Team control center" FontSize="11" Foreground="#95a5a6"/>
+                    <TextBlock Text="Argus" FontWeight="Bold" FontSize="20" Foreground="{DynamicResource MahApps.Brushes.TextStrong}"/>
+                    <TextBlock Text="Team control center" FontSize="11" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
                 </StackPanel>
             </StackPanel>
 
-            <!-- Menu -->
             <StackPanel>
-                <Button Content="Дашборд" Tag="https://cdn-icons-png.flaticon.com/512/1828/1828774.png"
+                <Button Content="Дашборд" Tag="/Assets/dashboard.png"
                         Style="{StaticResource MenuButtonStyle}" Click="Dashboard_Click"/>
-
-                <Button Content="Проекты"
-        Tag="https://cdn-icons-png.flaticon.com/512/2331/2331966.png"
-        Style="{StaticResource MenuButtonStyle}"
-        Click="Projects_Click"/>
-
-
-                <Button Content="Администрация" Tag="https://cdn-icons-png.flaticon.com/512/747/747376.png"
+                <Button Content="Проекты" Tag="/Assets/projects.png"
+                        Style="{StaticResource MenuButtonStyle}" Click="Projects_Click"/>
+                <Button Content="Администрация" Tag="/Assets/admin.png"
                         Style="{StaticResource MenuButtonStyle}"/>
-
-                <Button Content="Рейтинг" Tag="https://cdn-icons-png.flaticon.com/512/747/747310.png"
+                <Button Content="Рейтинг" Tag="/Assets/rating.png"
                         Style="{StaticResource MenuButtonStyle}"/>
-
-                <Button Content="Сотрудники" Tag="https://cdn-icons-png.flaticon.com/512/1077/1077063.png"
+                <Button Content="Сотрудники" Tag="/Assets/employees.png"
                         Style="{StaticResource MenuButtonStyle}" Click="OpenEmployeePage"/>
             </StackPanel>
 
             <Separator Margin="0 20"/>
 
-            <!-- Settings -->
             <StackPanel>
-                <Button Content="Центр помощи" Tag="https://cdn-icons-png.flaticon.com/512/1828/1828919.png"
+                <Button Content="Центр помощи" Tag="/Assets/help.png"
                         Style="{StaticResource MenuButtonStyle}"/>
-
-                <Button Content="Настройки" Tag="https://cdn-icons-png.flaticon.com/512/2099/2099058.png"
-        Style="{StaticResource MenuButtonStyle}" Click="OpenSettingsPage"/>
-
-                <Button Content="Выйти" Tag="https://cdn-icons-png.flaticon.com/512/1828/1828490.png"
+                <Button Content="Настройки" Tag="/Assets/settings.png"
+                        Style="{StaticResource MenuButtonStyle}" Click="OpenSettingsPage"/>
+                <Button Content="Выйти" Tag="/Assets/logout.png"
                         Style="{StaticResource LogoutButtonStyle}" Click="Logout_Click"/>
             </StackPanel>
 
-            <Border Background="#f1f2f6" Padding="10" CornerRadius="6" Margin="0 20 0 0">
+            <Border Background="{DynamicResource MahApps.Brushes.Control.Background}" Padding="10" CornerRadius="6" Margin="0 20 0 0">
                 <DockPanel>
-                    <!-- Аватар -->
-                    <Ellipse x:Name="FooterAvatar"
-                 Width="40" Height="40"
-                 DockPanel.Dock="Left"
-                 Margin="0,0,10,0"
-                 Fill="LightGray"/>
-
-                    <!-- Имя и роль -->
+                    <Ellipse x:Name="FooterAvatar" Width="40" Height="40" DockPanel.Dock="Left" Margin="0,0,10,0" Fill="Gray"/>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock x:Name="FooterName"
-                       Text="Имя"
-                       FontWeight="Bold"
-                       FontSize="13"/>
-                        <TextBlock x:Name="FooterRole"
-                       Text="Роль"
-                       FontSize="11"
-                       Foreground="#95a5a6"/>
+                        <TextBlock x:Name="FooterName" Text="Имя" FontWeight="Bold" FontSize="13"/>
+                        <TextBlock x:Name="FooterRole" Text="Роль" FontSize="11" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
                     </StackPanel>
                 </DockPanel>
             </Border>
         </StackPanel>
-        <!-- Content -->
-        <Grid Grid.Column="1" Background="#f5f6fa">
-            <TextBlock x:Name="PageTitle" FontSize="24" FontWeight="Bold" Margin="30 20" Text="Дашборд"/>
+
+        <!-- Main content -->
+        <Grid Grid.Column="1" Background="{DynamicResource MahApps.Brushes.Background}">
+            <TextBlock x:Name="PageTitle" FontSize="24" FontWeight="Bold" Margin="30 20" Text="Дашборд" Foreground="{DynamicResource MahApps.Brushes.TextStrong}"/>
             <Frame x:Name="MainFrame" Margin="30 60 30 30" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using Argus_WPF.ViewModels;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Argus_WPF.Pages
@@ -8,7 +9,14 @@ namespace Argus_WPF.Pages
         public SettingsPage()
         {
             InitializeComponent();
+
+            // Если создаёте VM вручную:
+            this.DataContext = new ThemeManagerViewModel();
+
+            // Если используете DI (вроде Microsoft.Extensions.DependencyInjection):
+            // this.DataContext = App.AppHost.Services.GetRequiredService<ThemeManagerViewModel>();
         }
+
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {

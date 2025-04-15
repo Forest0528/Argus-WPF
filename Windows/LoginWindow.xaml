@@ -3,100 +3,97 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Вход в систему" 
         WindowStartupLocation="CenterScreen"
-        Width="800" Height="450" 
-        Background="#FFFFFF"
-        ResizeMode="NoResize">
+        Width="800" Height="450"
+        ResizeMode="NoResize"
+        Background="{DynamicResource MahApps.Brushes.Background}"
+        Foreground="{DynamicResource MahApps.Brushes.Text}">
 
     <Grid>
-        <!-- Две колонки: левая (синяя) и правая (белая) -->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Левая часть: цветной фон + лого + название -->
+        <!-- Левая часть (брендовая, не зависит от темы) -->
         <Border Grid.Column="0">
             <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#4A86FC" Offset="0"/>
                     <GradientStop Color="#3C6CE2" Offset="1"/>
                 </LinearGradientBrush>
             </Border.Background>
 
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <!-- Заменить на реальную иконку/лого (Image) -->
                 <Ellipse Width="80" Height="80" Fill="White" Margin="0,0,0,20" />
-
-                <!-- Название приложения -->
-                <TextBlock Text="Argus" 
-                           FontSize="24" 
-                           FontWeight="Bold" 
-                           Foreground="White" 
-                           HorizontalAlignment="Center"/>
+                <TextBlock Text="Argus" FontSize="24" FontWeight="Bold" Foreground="White" />
                 <TextBlock Text="Система отчёта сотрудников"
                            FontSize="14"
                            Foreground="White"
-                           Margin="0,5,0,0"
-                           HorizontalAlignment="Center"/>
+                           Margin="0,5,0,0" />
             </StackPanel>
         </Border>
 
-        <!-- Правая часть: форма логина на белом фоне -->
-        <Border Grid.Column="1" Background="White">
+        <!-- Правая часть: адаптивна к теме -->
+        <Border Grid.Column="1"
+                Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                BorderBrush="{DynamicResource MahApps.Brushes.Border}"
+                BorderThickness="0,0,0,0">
             <StackPanel Margin="50,0,50,0" VerticalAlignment="Center">
 
-                <!-- Заголовок -->
                 <TextBlock Text="Вход в аккаунт"
                            FontSize="22"
                            FontWeight="Bold"
-                           Margin="0,0,0,20" />
+                           Margin="0,0,0,20"
+                           Foreground="{DynamicResource MahApps.Brushes.TextStrong}" />
 
-                <!-- Поле ID (или Email) -->
-                <TextBlock Text="ID сотрудника:"
-                           FontSize="14" 
-                           Margin="0,0,0,5" />
+                <!-- Логин -->
+                <TextBlock Text="ID сотрудника:" FontSize="14" Margin="0,0,0,5" />
                 <TextBox x:Name="txtLogin"
                          Height="34"
                          FontSize="14"
                          Padding="8"
                          Margin="0,0,0,15"
-                         KeyDown="txtLogin_KeyDown" />
+                         KeyDown="txtLogin_KeyDown"
+                         Background="{DynamicResource MahApps.Brushes.TextBox.Background}"
+                         Foreground="{DynamicResource MahApps.Brushes.Text}"
+                         BorderBrush="{DynamicResource MahApps.Brushes.Border}" />
 
-                <!-- Поле пароля -->
-                <TextBlock Text="Пароль:"
-                           FontSize="14" 
-                           Margin="0,0,0,5" />
+                <!-- Пароль -->
+                <TextBlock Text="Пароль:" FontSize="14" Margin="0,0,0,5" />
                 <PasswordBox x:Name="txtPassword"
                              Height="34"
                              Padding="8"
                              Margin="0,0,0,10"
-                             KeyDown="txtPassword_KeyDown" />
+                             KeyDown="txtPassword_KeyDown"
+                             Background="{DynamicResource MahApps.Brushes.TextBox.Background}"
+                             Foreground="{DynamicResource MahApps.Brushes.Text}"
+                             BorderBrush="{DynamicResource MahApps.Brushes.Border}" />
 
-                <!-- Ссылка "Забыли пароль?" -->
+                <!-- Забыли пароль -->
                 <TextBlock Text="Забыли пароль?"
-                           Foreground="#3C6CE2"
+                           Foreground="{DynamicResource MahApps.Brushes.Accent}"
                            Cursor="Hand"
                            HorizontalAlignment="Left"
                            Margin="0,0,0,15"
                            MouseLeftButtonDown="ForgotPassword_Click" />
 
-                <!-- Кнопка ВОЙТИ -->
+                <!-- Войти -->
                 <Button x:Name="btnLogin"
                         Content="Войти"
-                        Background="#4A86FC"
-                        Foreground="White"
+                        Background="{DynamicResource MahApps.Brushes.Accent}"
+                        Foreground="{DynamicResource MahApps.Brushes.TextOnAccent}"
                         FontWeight="Bold"
                         FontSize="14"
                         Height="36"
                         Margin="0,0,0,10"
-                        Click="btnLogin_Click"/>
+                        Click="btnLogin_Click" />
 
-                <!-- Кнопка "Войти через Google" -->
+                <!-- Google -->
                 <Button x:Name="btnGoogleLogin"
                         Content="Войти через Google"
-                        Background="#FFFFFF"
-                        Foreground="#4A86FC"
-                        BorderBrush="#4A86FC"
+                        Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                        Foreground="{DynamicResource MahApps.Brushes.Accent}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Accent}"
                         BorderThickness="2"
                         FontSize="14"
                         FontWeight="SemiBold"
@@ -104,18 +101,19 @@
                         Margin="0,0,0,10"
                         Click="btnGoogleLogin_Click" />
 
-                <!-- Кнопка ОТМЕНА (или Закрыть) -->
+                <!-- Отмена -->
                 <Button x:Name="btnCancel"
                         Content="Отмена"
-                        Background="LightGray"
-                        Foreground="Black"
+                        Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                        Foreground="{DynamicResource MahApps.Brushes.Text}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Border}"
                         FontSize="14"
                         Height="36"
                         Click="btnCancel_Click" />
 
-                <!-- Ссылка "Регистрация нового сотрудника" (по желанию) -->
+                <!-- Регистрация -->
                 <TextBlock Text="Регистрация нового сотрудника"
-                           Foreground="#3C6CE2"
+                           Foreground="{DynamicResource MahApps.Brushes.Accent}"
                            Margin="0,15,0,0"
                            Cursor="Hand"
                            HorizontalAlignment="Center" />
