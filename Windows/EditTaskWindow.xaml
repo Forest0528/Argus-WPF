@@ -5,7 +5,7 @@
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize"
         Width="450" Height="400"
-        Background="#F7F7F7"
+        Background="{DynamicResource MahApps.Brushes.Background}"
         Loaded="Window_Loaded">
 
     <!-- Обёрточная сетка -->
@@ -110,7 +110,7 @@
                     HorizontalAlignment="Right" Margin="0,10,0,0">
             <Button Content="Сохранить"
                     Width="90" Margin="5,0"
-                    Background="#4A86FC"
+                    Background="{DynamicResource MahApps.Brushes.Background}"
                     Foreground="White"
                     Click="BtnSave_Click"/>
             <Button Content="Отмена"

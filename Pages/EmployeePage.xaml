@@ -7,7 +7,7 @@
     <Page.Resources>
         <!-- Стиль таблицы -->
         <Style TargetType="DataGrid">
-            <Setter Property="Background" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Background}"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="RowBackground" Value="White"/>
             <Setter Property="AlternatingRowBackground" Value="#f9f9f9"/>

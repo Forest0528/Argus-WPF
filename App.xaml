@@ -1,24 +1,37 @@
 ﻿<Application x:Class="Argus_WPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- Подключаем базовые стили MahApps.Metro -->
+                <!-- 1) MahApps / ControlzEx базовые стили -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+
+                <!-- 2) Подключаем хотя бы одну Light тему 
+                     (ThemeManager потом будет переключать на любую другую) -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- Кастомные цвета и стили -->
-            <SolidColorBrush x:Key="PageBackgroundBrush" Color="#FAFAFA"/>
-            <SolidColorBrush x:Key="CardBackgroundBrush" Color="White"/>
-            <SolidColorBrush x:Key="PrimaryTextBrush" Color="#2d3436"/>
-            <DropShadowEffect x:Key="CardShadow" BlurRadius="10" ShadowDepth="2" Color="#33000000"/>
+            <!-- 3) Если хотите завести собственные кисти, 
+                     делайте их через DynamicResource MahApps -->
+            <SolidColorBrush x:Key="PageBackgroundBrush" 
+                             Color="{DynamicResource MahApps.Brushes.BackgroundColor}" />
+            <SolidColorBrush x:Key="CardBackgroundBrush" 
+                             Color="{DynamicResource MahApps.Brushes.Control.BackgroundColor}" />
+            <SolidColorBrush x:Key="PrimaryTextBrush" 
+                             Color="{DynamicResource MahApps.Brushes.TextColor}" />
 
-            <!-- Стиль кнопки -->
+            <!-- Пример эффекта (DropShadow) можно оставить 
+                 c фиксированным цветом, т.к. это не влияет на «фон» -->
+            <DropShadowEffect x:Key="CardShadow" BlurRadius="10" ShadowDepth="2" Color="#33000000" />
+
+            <!-- Пример кнопки, 
+                 вместо #0984e3 / White используем DynamicResource для акцентной кисти -->
             <Style TargetType="Button" x:Key="PrimaryButton">
-                <Setter Property="Background" Value="#0984e3"/>
-                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}"/>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.TextOnAccent}"/>
                 <Setter Property="Padding" Value="10 6"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -26,23 +39,20 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" 
-                                    CornerRadius="4">
-                                <ContentPresenter HorizontalAlignment="Center" 
-                                                  VerticalAlignment="Center" />
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
             </Style>
 
-            <!-- Стиль чекбокса -->
+            <!-- Пример чекбокса -->
             <Style TargetType="CheckBox" x:Key="SettingsCheckBox">
-                <Setter Property="Foreground" Value="#2d3436"/>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Margin" Value="0 5"/>
             </Style>
-
         </ResourceDictionary>
     </Application.Resources>
 </Application>

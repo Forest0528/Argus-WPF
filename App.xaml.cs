@@ -39,9 +39,10 @@ namespace Argus_WPF
         {
             base.OnStartup(e);
 
-            // Устанавливаем тему через ThemeManager
-            ThemeManager.Current.ChangeTheme(this, Settings.Default.Theme);
-
+            ThemeManager.Current.ChangeTheme(
+    this,
+    global::Argus_WPF.Properties.Settings.Default.Theme
+);
             var login = AppHost.Services.GetRequiredService<LoginWindow>();
             login.Show();
         }

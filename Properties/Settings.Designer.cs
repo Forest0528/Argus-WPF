@@ -26,12 +26,12 @@ namespace Argus_WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool NotifyEmail {
+        public bool Notify {
             get {
-                return ((bool)(this["NotifyEmail"]));
+                return ((bool)(this["Notify"]));
             }
             set {
-                this["NotifyEmail"] = value;
+                this["Notify"] = value;
             }
         }
         
@@ -56,6 +56,18 @@ namespace Argus_WPF.Properties {
             }
             set {
                 this["Theme"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool NotifyEmail {
+            get {
+                return ((bool)(this["NotifyEmail"]));
+            }
+            set {
+                this["NotifyEmail"] = value;
             }
         }
     }

@@ -6,7 +6,7 @@
                    Height="480" Width="800"
                    WindowStartupLocation="CenterScreen"
                    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-                   Background="{DynamicResource MahApps.Brushes.Background}"
+                   Background="{DynamicResource MahApps.Brushes.Control.Background}"
                    Foreground="{DynamicResource MahApps.Brushes.Text}">
 
     <Window.Resources>
@@ -96,7 +96,7 @@
 
         <!-- Main content -->
         <Grid Grid.Column="1" Background="{DynamicResource MahApps.Brushes.Background}">
-            <TextBlock x:Name="PageTitle" FontSize="24" FontWeight="Bold" Margin="30 20" Text="Дашборд" Foreground="{DynamicResource MahApps.Brushes.TextStrong}"/>
+            <TextBlock Background="{DynamicResource MahApps.Brushes.Control.Background}" x:Name="PageTitle" FontSize="24" FontWeight="Bold" Margin="30 20" Text="Дашборд" Foreground="{DynamicResource MahApps.Brushes.TextStrong}"/>
             <Frame x:Name="MainFrame" Margin="30 60 30 30" NavigationUIVisibility="Hidden"/>
         </Grid>
     </Grid>
