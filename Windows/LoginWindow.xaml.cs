@@ -50,6 +50,7 @@ namespace Argus_WPF
                 if (user != null)
                 {
                     LoggedInEmployee = user;
+                    App.CurrentUser = user;
 
                     MainWindow mainWindow = new MainWindow(user, _employeeService);
                     Application.Current.MainWindow = mainWindow;
@@ -113,6 +114,7 @@ namespace Argus_WPF
                     AvatarUrl = userInfo.Picture
                 };
 
+                App.CurrentUser = googleUser;
                 var mainWindow = new MainWindow(googleUser, _employeeService);
                 Application.Current.MainWindow = mainWindow;
                 mainWindow.Show();

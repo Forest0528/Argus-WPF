@@ -1,10 +1,10 @@
 ﻿using Argus_WPF.Models;
+using Argus_WPF.Services;
 using Argus_WPF.ViewModels;
-using CommunityToolkit.Mvvm.Messaging;
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows;
 
 namespace Argus_WPF.UserControls
 {
@@ -16,7 +16,14 @@ namespace Argus_WPF.UserControls
         {
             InitializeComponent();
 
-            _viewModel = App.AppHost.Services.GetService(typeof(DashboardViewModel)) as DashboardViewModel;
+            // Предположим, у вас есть DI-контейнер, но мы вручную:
+            // var employeeService = new SomeEmployeeService();
+            // _viewModel = new DashboardViewModel(employeeService, user);
+
+            // Или, если используете AppHost:
+            var employeeService = App.AppHost.Services.GetService(typeof(IEmployeeService)) as IEmployeeService;
+            _viewModel = new DashboardViewModel(employeeService, user);
+
             this.DataContext = _viewModel;
 
             GreetUser(user);
@@ -35,7 +42,7 @@ namespace Argus_WPF.UserControls
                 }
                 catch
                 {
-                    AvatarImage.Visibility = Visibility.Collapsed;
+                    AvatarImage.Visibility = System.Windows.Visibility.Collapsed;
                 }
             }
         }

@@ -1,18 +1,18 @@
-﻿using System;
-using System.Windows;
-using Argus_WPF.Properties;
-using Argus_WPF.Services;
+﻿using Argus_WPF.Services;
 using Argus_WPF.ViewModels;
 using Argus_WPF.Views;
 using ControlzEx.Theming;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Windows;
 
 namespace Argus_WPF
 {
     public partial class App : Application
     {
         public static IHost AppHost { get; private set; }
+        public static Models.Employee CurrentUser { get; set; }
+
 
         public App()
         {
@@ -40,9 +40,9 @@ namespace Argus_WPF
             base.OnStartup(e);
 
             ThemeManager.Current.ChangeTheme(
-    this,
-    global::Argus_WPF.Properties.Settings.Default.Theme
-);
+            this,
+            global::Argus_WPF.Properties.Settings.Default.Theme
+            );
             var login = AppHost.Services.GetRequiredService<LoginWindow>();
             login.Show();
         }

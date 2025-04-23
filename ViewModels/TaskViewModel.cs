@@ -5,8 +5,11 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows; // для MessageBox, если нужно
 
 namespace Argus_WPF.ViewModels
 {
@@ -15,17 +18,27 @@ namespace Argus_WPF.ViewModels
     /// - хранит коллекцию Tasks
     /// - предоставляет фильтрацию по исполнителю и статусу
     /// - подсчитывает аналитику (количество задач разных статусов, топ исполнителей)
-    /// - предоставляет команды (AddTaskCommand, DeleteTaskCommand)
+    /// - команды (AddTask, DeleteTask) + "Пришёл"/"Ушёл" (запись в data.json)
     /// </summary>
     public partial class TaskViewModel : ObservableObject
     {
+        // 1) Сервис для задач
         private readonly ITaskService _taskService;
 
-        // Основные коллекции
+        // 2) Путь к data.json (где храним "Пришёл"/"Ушёл")
+        private readonly string _timeRecordFile =
+            Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data", "data.json");
+
+        // 3) Текущий пользователь (логин, роль) - берём из App.Current.Properties
+        private readonly Employee _currentUser;
+
+        // -------------------
+        // Коллекции для задач
+        // -------------------
         [ObservableProperty] private ObservableCollection<TaskItem> tasks = new();
         [ObservableProperty] private ObservableCollection<TaskItem> filteredTasks = new();
 
-        // Выбранная задача (для, например, удаления или доп.информации)
+        // Выбранная задача
         [ObservableProperty] private TaskItem? selectedTask;
 
         // Фильтры
@@ -38,35 +51,40 @@ namespace Argus_WPF.ViewModels
         [ObservableProperty] private int inProgressCount;
         [ObservableProperty] private int completedCount;
 
-        // Топ исполнителей (Dictionary: Имя исполнителя -> Количество задач)
+        // Топ исполнителей
         [ObservableProperty] private Dictionary<string, int> topExecutors = new();
 
         [ObservableProperty]
         private List<DailyAnalyticsItem> last7DaysAnalytics = new();
 
         /// <summary>
-        /// Инициализирует сервис задач и загружает их из хранилища.
+        /// Конструктор: теперь **только** ITaskService, 
+        /// а текущего юзера берём через App.Current.Properties["CurrentUser"].
         /// </summary>
         public TaskViewModel(ITaskService taskService)
         {
             _taskService = taskService;
+
+            // Пытаемся взять текущего пользователя из App.Current.Properties
+            // Убедитесь, что вы установили App.Current.Properties["CurrentUser"] где-то при логине
+            _currentUser = App.Current.Properties["CurrentUser"] as Employee;
+            if (_currentUser == null)
+            {
+                // Например, если не нашли, можно создать «заглушку» или вывести сообщение
+                _currentUser = new Employee
+                {
+                    Login = "Unknown",
+                    Role = "User"
+                };
+            }
+
             _ = LoadTasksAsync();
         }
 
-        /// <summary>
-        /// Загружает все задачи из хранилища и обновляет UI.
-        /// </summary>
-        private async Task LoadTasksAsync()
-        {
-            var list = await _taskService.GetAllAsync();
-            Tasks = new ObservableCollection<TaskItem>(list);
-            ApplyFilters();
-            UpdateAnalytics();
-        }
+        // =============================
+        //  КОМАНДЫ УПРАВЛЕНИЯ ЗАДАЧАМИ
+        // =============================
 
-        /// <summary>
-        /// Команда добавления новой задачи.
-        /// </summary>
         [RelayCommand]
         private async Task AddTask()
         {
@@ -91,9 +109,6 @@ namespace Argus_WPF.ViewModels
             }
         }
 
-        /// <summary>
-        /// Команда удаления выбранной задачи.
-        /// </summary>
         [RelayCommand]
         private async Task DeleteTask()
         {
@@ -106,7 +121,86 @@ namespace Argus_WPF.ViewModels
             }
         }
 
-        // При изменении FilterStatus или FilterExecutor (или самой коллекции Tasks)
+        // =============================
+        //  "ПРИШЁЛ" / "УШЁЛ"
+        // =============================
+
+        [RelayCommand]
+        private async Task Arrived()
+        {
+            await RecordTimeAsync("Пришёл");
+        }
+
+        [RelayCommand]
+        private async Task Left()
+        {
+            await RecordTimeAsync("Ушёл");
+        }
+
+        /// <summary>
+        /// Записывает в data.json (TimeRecord) событие "Пришёл"/"Ушёл" для _currentUser.
+        /// </summary>
+        private async Task RecordTimeAsync(string action)
+        {
+            try
+            {
+                // 1. Считываем текущие записи
+                List<TimeRecord> records = new();
+                if (File.Exists(_timeRecordFile))
+                {
+                    var existingJson = await File.ReadAllTextAsync(_timeRecordFile);
+                    records = JsonSerializer.Deserialize<List<TimeRecord>>(existingJson) ?? new List<TimeRecord>();
+                }
+
+                // 2. Добавляем новую запись
+                records.Add(new TimeRecord
+                {
+                    EmployeeLogin = _currentUser.Login,
+                    Timestamp = DateTime.Now,
+                    Action = action
+                });
+
+                // 3. Сохраняем
+                var updatedJson = JsonSerializer.Serialize(records, new JsonSerializerOptions
+                {
+                    WriteIndented = true
+                });
+                await File.WriteAllTextAsync(_timeRecordFile, updatedJson);
+            }
+            catch (Exception ex)
+            {
+                // Обработка ошибок
+                System.Windows.MessageBox.Show($"Ошибка записи в data.json: {ex.Message}");
+            }
+        }
+
+        // ===================================
+        //  ЗАГРУЗКА/СОХРАНЕНИЕ СПИСКА ЗАДАЧ
+        // ===================================
+
+        private async Task LoadTasksAsync()
+        {
+            var list = await _taskService.GetAllAsync();
+            Tasks = new ObservableCollection<TaskItem>(list);
+
+            ApplyFilters();
+            UpdateAnalytics();
+        }
+
+        private async Task SaveTasksAsync()
+        {
+            await _taskService.SaveAllAsync(Tasks.ToList());
+        }
+
+        // ===================================
+        //  ФИЛЬТРЫ
+        // ===================================
+
+        public List<string> Statuses { get; } = new()
+        {
+            "Все", "Не начато", "Выполняется", "Завершено"
+        };
+
         partial void OnFilterStatusChanged(string value)
         {
             Console.WriteLine($"Filter changed to: {value}");
@@ -114,15 +208,13 @@ namespace Argus_WPF.ViewModels
         }
 
         partial void OnFilterExecutorChanged(string value) => ApplyFilters();
+
         partial void OnTasksChanged(ObservableCollection<TaskItem> value)
         {
             ApplyFilters();
             UpdateAnalytics();
         }
 
-        /// <summary>
-        /// Применяем фильтры по статусу и исполнителю к списку задач.
-        /// </summary>
         private void ApplyFilters()
         {
             var query = Tasks.AsEnumerable();
@@ -143,15 +235,10 @@ namespace Argus_WPF.ViewModels
             FilteredTasks = new ObservableCollection<TaskItem>(query);
         }
 
-        public List<string> Statuses { get; } = new()
-        {
-            "Все", "Не начато", "Выполняется", "Завершено"
-        };
+        // ===================================
+        //  АНАЛИТИКА
+        // ===================================
 
-
-        /// <summary>
-        /// Обновляет сводную аналитику: общее кол-во задач, распределение по статусам, топ исполнителей.
-        /// </summary>
         private void UpdateAnalytics()
         {
             TotalTasks = Tasks.Count;
@@ -166,7 +253,7 @@ namespace Argus_WPF.ViewModels
                 .Take(5)
                 .ToDictionary(g => g.Key, g => g.Count());
 
-            UpdateDailyAnalytics(); // <-- новая аналитика
+            UpdateDailyAnalytics();
         }
 
         private void UpdateDailyAnalytics()
@@ -185,15 +272,6 @@ namespace Argus_WPF.ViewModels
                 .ToList();
 
             Last7DaysAnalytics = analytics;
-        }
-
-
-        /// <summary>
-        /// Сохраняет текущее состояние задач (для постоянного хранения).
-        /// </summary>
-        private async Task SaveTasksAsync()
-        {
-            await _taskService.SaveAllAsync(Tasks.ToList());
         }
     }
 }

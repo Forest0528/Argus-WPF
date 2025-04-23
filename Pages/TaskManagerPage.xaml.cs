@@ -4,9 +4,6 @@ using System.Windows.Controls;
 
 namespace Argus_WPF.Pages
 {
-    /// <summary>
-    ///     Interaction logic for TaskManagerPage.xaml
-    /// </summary>
     public partial class TaskManagerPage : Page
     {
         public TaskManagerPage()

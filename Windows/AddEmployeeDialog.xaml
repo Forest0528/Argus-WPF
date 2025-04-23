@@ -1,0 +1,106 @@
+﻿<mah:MetroWindow x:Class="Argus_WPF.Windows.AddEmployeeDialog"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 Title="Добавить сотрудника"
+                 Height="400"
+                 Width="420"
+                 WindowStartupLocation="CenterOwner"
+                 ResizeMode="NoResize"
+                 WindowStyle="None"
+                 WindowTransitionsEnabled="True"
+                 GlowBrush="{DynamicResource MahApps.Brushes.Accent}">
+
+    <!-- Основная сетка с отступами -->
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <!-- Шапка -->
+            <RowDefinition Height="Auto"/>
+            <!-- Тело с полями -->
+            <RowDefinition Height="*"/>
+            <!-- Панель с кнопками -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Заголовок (с декоративной карточкой) -->
+        <Border Grid.Row="0"
+                CornerRadius="6"
+                Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                Padding="10"
+                Margin="0,0,0,15">
+            <TextBlock Text="Новый сотрудник"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="{DynamicResource MahApps.Brushes.Text}" />
+        </Border>
+
+        <!-- Карточка с полями ввода -->
+        <Border Grid.Row="1"
+                CornerRadius="6"
+                Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                Padding="10"
+                Margin="0,0,0,15">
+
+            <StackPanel>
+                <!-- ID -->
+                <TextBox x:Name="IdBox"
+                         Margin="0 5"
+                         ToolTip="ID"
+                         mah:TextBoxHelper.Watermark="ID"/>
+
+                <!-- Имя -->
+                <TextBox x:Name="NameBox"
+                         Margin="0 5"
+                         ToolTip="Имя"
+                         mah:TextBoxHelper.Watermark="Имя"/>
+
+                <!-- Логин -->
+                <TextBox x:Name="LoginBox"
+                         Margin="0 5"
+                         ToolTip="Логин"
+                         mah:TextBoxHelper.Watermark="Логин"/>
+
+                <!-- Пароль -->
+                <PasswordBox x:Name="PasswordBox"
+                             Margin="0 5"
+                             ToolTip="Пароль"
+                             mah:TextBoxHelper.Watermark="Пароль"/>
+
+                <!-- Почта -->
+                <TextBox x:Name="MailBox"
+                         Margin="0 5"
+                         ToolTip="Почта"
+                         mah:TextBoxHelper.Watermark="Почта"/>
+
+                <!-- Роль -->
+                <ComboBox x:Name="RoleBox"
+                          Margin="0 5"
+                          SelectedIndex="0">
+                    <ComboBoxItem Content="Разработчик"/>
+                    <ComboBoxItem Content="Веб-разработчик"/>
+                    <ComboBoxItem Content="Дизайнер"/>
+                    <ComboBoxItem Content="SMM"/>
+                    <ComboBoxItem Content="QA | Backend"/>
+                    <ComboBoxItem Content="Тимлид"/>
+                    <ComboBoxItem Content="Руководитель"/>
+                    <ComboBoxItem Content="Директор"/>
+                </ComboBox>
+            </StackPanel>
+        </Border>
+
+        <!-- Нижняя панель с кнопками -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Content="Отмена"
+                    Width="100"
+                    Margin="0 0 10 0"
+                    Click="Cancel_Click"/>
+            <Button Content="Добавить"
+                    Width="100"
+                    Background="{DynamicResource MahApps.Brushes.Accent}"
+                    Foreground="{DynamicResource MahApps.Brushes.Text}"
+                    Click="Add_Click"/>
+        </StackPanel>
+    </Grid>
+</mah:MetroWindow>

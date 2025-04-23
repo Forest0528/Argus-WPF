@@ -2,43 +2,113 @@
   {
     "Id": "001",
     "Name": "Асильбек",
-    "Password": "1234",
-    "Role": "Admin"
+    "Login": "a.farmanov",
+    "Password": "kilua777",
+    "Role": "Разработчик",
+    "Mail": "asilbek@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-01T09:00:00",
+    "LastLogin": "2025-04-15T08:30:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:10:00"
   },
   {
     "Id": "002",
     "Name": "Музаффар",
-    "Password": "qwerty",
-    "Role": "User"
+    "Login": "m.usainov",
+    "Password": "137952846",
+    "Role": "Руководитель",
+    "Mail": "muzaffar@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-02T10:00:00",
+    "LastLogin": "2025-04-14T17:50:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:12:00"
   },
   {
     "Id": "003",
     "Name": "Фаим",
+    "Login": "f.badgutdinov",
     "Password": "123",
-    "Role": "Admin"
+    "Role": "Руководитель",
+    "Mail": "faim@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-03T09:30:00",
+    "LastLogin": "2025-04-10T13:25:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:13:00"
   },
   {
     "Id": "004",
     "Name": "Тимур",
+    "Login": "t.rasulov",
     "Password": "123",
-    "Role": "Admin"
+    "Role": "Директор",
+    "Mail": "timur@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-04T11:00:00",
+    "LastLogin": "2025-04-15T12:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:15:00"
   },
   {
     "Id": "005",
     "Name": "Шахислам",
+    "Login": "s.rahimov",
     "Password": "123",
-    "Role": "Admin"
+    "Role": "Директор",
+    "Mail": "shahislam@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-05T14:00:00",
+    "LastLogin": "2025-04-16T09:55:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:16:00"
   },
   {
     "Id": "006",
     "Name": "Маджид",
+    "Login": "m.bahodirov",
     "Password": "123",
-    "Role": "Admin"
+    "Role": "Дизайнер",
+    "Mail": "madjid@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-06T08:45:00",
+    "LastLogin": "2025-04-15T11:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:18:00"
   },
   {
     "Id": "007",
     "Name": "Диёр",
-    "Password": "123",
-    "Role": "User"
+    "Login": "d.orifjonov",
+    "Password": "_legend2005_",
+    "Role": "QA | Backend",
+    "Mail": "diyor.o@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-07T15:00:00",
+    "LastLogin": "2025-04-12T10:00:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:19:00"
+  },
+  {
+    "Id": "008",
+    "Name": "Диёр",
+    "Login": "d.ismoilov",
+    "Password": "diyor5005",
+    "Role": "SMM",
+    "Mail": "diyor.i@example.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-08T13:00:00",
+    "LastLogin": "2025-04-16T09:30:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:20:00"
   }
 ]

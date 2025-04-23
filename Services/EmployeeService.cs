@@ -12,23 +12,9 @@ namespace Argus_WPF.Services
 
         public async Task<List<Employee>> GetAllAsync()
         {
-            if (!File.Exists(_filePath))
-                return new List<Employee>();
-
+            if (!File.Exists(_filePath)) return new List<Employee>();
             var json = await File.ReadAllTextAsync(_filePath);
             return JsonSerializer.Deserialize<List<Employee>>(json) ?? new List<Employee>();
-        }
-
-        public async Task<Employee?> GetByIdAsync(string id)
-        {
-            var all = await GetAllAsync();
-            return all.Find(emp => emp.Id == id);
-        }
-
-        public async Task SaveAsync(List<Employee> employees)
-        {
-            var json = JsonSerializer.Serialize(employees, new JsonSerializerOptions { WriteIndented = true });
-            await File.WriteAllTextAsync(_filePath, json);
         }
     }
 }

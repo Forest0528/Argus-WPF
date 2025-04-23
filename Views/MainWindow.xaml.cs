@@ -2,6 +2,7 @@
 using Argus_WPF.Pages;
 using Argus_WPF.Services;
 using Argus_WPF.UserControls;
+using Argus_WPF.Windows;
 using MahApps.Metro.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -82,6 +83,18 @@ namespace Argus_WPF.Views
         {
             PageTitle.Text = "Проекты";
             MainFrame.Navigate(new TaskManagerPage());
+        }
+        private void Admins_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentUser.Role == "Директор" || _currentUser.Role == "Руководитель")
+            {
+                var adminWindow = new AdminWindow();
+                adminWindow.Show();
+            }
+            else
+            {
+                MessageBox.Show("У вас нет прав доступа к этой странице.", "Отказано", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)

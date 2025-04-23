@@ -81,7 +81,7 @@
                 <Button x:Name="btnLogin"
                         Content="Войти"
                         Background="{DynamicResource MahApps.Brushes.Accent}"
-                        Foreground="{DynamicResource MahApps.Brushes.TextOnAccent}"
+                        Foreground="{DynamicResource MahApps.Brushes.Text}"
                         FontWeight="Bold"
                         FontSize="14"
                         Height="36"

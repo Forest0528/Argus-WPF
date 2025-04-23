@@ -65,7 +65,7 @@
                 <Button Content="Проекты" Tag="/Assets/projects.png"
                         Style="{StaticResource MenuButtonStyle}" Click="Projects_Click"/>
                 <Button Content="Администрация" Tag="/Assets/admin.png"
-                        Style="{StaticResource MenuButtonStyle}"/>
+                        Style="{StaticResource MenuButtonStyle}" Click="Admins_Click"/>
                 <Button Content="Рейтинг" Tag="/Assets/rating.png"
                         Style="{StaticResource MenuButtonStyle}"/>
                 <Button Content="Сотрудники" Tag="/Assets/employees.png"
