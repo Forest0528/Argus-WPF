@@ -66,8 +66,8 @@
                         Style="{StaticResource MenuButtonStyle}" Click="Projects_Click"/>
                 <Button Content="Администрация" Tag="/Assets/admin.png"
                         Style="{StaticResource MenuButtonStyle}" Click="Admins_Click"/>
-                <Button Content="Рейтинг" Tag="/Assets/rating.png"
-                        Style="{StaticResource MenuButtonStyle}"/>
+                <Button Content="Делегатор" Tag="/Assets/rating.png"
+                        Style="{StaticResource MenuButtonStyle}" Click="Delegator_Click"/>
                 <Button Content="Сотрудники" Tag="/Assets/employees.png"
                         Style="{StaticResource MenuButtonStyle}" Click="OpenEmployeePage"/>
             </StackPanel>

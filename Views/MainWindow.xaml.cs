@@ -96,6 +96,10 @@ namespace Argus_WPF.Views
                 MessageBox.Show("У вас нет прав доступа к этой странице.", "Отказано", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+        private void Delegator_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new DelegatorPage());
+        }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {

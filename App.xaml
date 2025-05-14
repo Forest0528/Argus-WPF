@@ -5,37 +5,34 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!-- 1) MahApps / ControlzEx базовые стили -->
+                <!-- MahApps.Metro base styles -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-
-                <!-- 2) Подключаем хотя бы одну Light тему 
-                     (ThemeManager потом будет переключать на любую другую) -->
+                <!-- Default light theme -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- 3) Если хотите завести собственные кисти, 
-                     делайте их через DynamicResource MahApps -->
-            <SolidColorBrush x:Key="PageBackgroundBrush" 
+            <!-- Кастомные цвета (обёртки) -->
+            <SolidColorBrush x:Key="PageBackgroundBrush"
                              Color="{DynamicResource MahApps.Brushes.BackgroundColor}" />
-            <SolidColorBrush x:Key="CardBackgroundBrush" 
+            <SolidColorBrush x:Key="CardBackgroundBrush"
                              Color="{DynamicResource MahApps.Brushes.Control.BackgroundColor}" />
-            <SolidColorBrush x:Key="PrimaryTextBrush" 
+            <SolidColorBrush x:Key="PrimaryTextBrush"
                              Color="{DynamicResource MahApps.Brushes.TextColor}" />
 
-            <!-- Пример эффекта (DropShadow) можно оставить 
-                 c фиксированным цветом, т.к. это не влияет на «фон» -->
+            <!-- Эффекты -->
             <DropShadowEffect x:Key="CardShadow" BlurRadius="10" ShadowDepth="2" Color="#33000000" />
 
-            <!-- Пример кнопки, 
-                 вместо #0984e3 / White используем DynamicResource для акцентной кисти -->
-            <Style TargetType="Button" x:Key="PrimaryButton">
-                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}"/>
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.TextOnAccent}"/>
-                <Setter Property="Padding" Value="10 6"/>
-                <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="Cursor" Value="Hand"/>
+            <!-- 🌟 СТИЛИ 🌟 -->
+
+            <!-- 🎨 Основная кнопка -->
+            <Style x:Key="PrimaryButton" TargetType="Button">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.TextOnAccent}" />
+                <Setter Property="Padding" Value="10 6" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
@@ -47,12 +44,53 @@
                 </Setter>
             </Style>
 
-            <!-- Пример чекбокса -->
-            <Style TargetType="CheckBox" x:Key="SettingsCheckBox">
-                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}"/>
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Margin" Value="0 5"/>
+            <!-- 🔘 Вторичная кнопка (например, отмена или вспомогательные действия) -->
+            <Style x:Key="SecondaryButton" TargetType="Button" BasedOn="{StaticResource PrimaryButton}">
+                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
             </Style>
+
+            <!-- 🧷 Кнопка-иконка -->
+            <Style x:Key="IconButton" TargetType="Button">
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Padding" Value="6" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+            </Style>
+
+            <!-- ✅ CheckBox -->
+            <Style TargetType="CheckBox" x:Key="SettingsCheckBox">
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Margin" Value="0 5" />
+            </Style>
+
+            <!-- 🧾 Групповые карточки -->
+            <Style x:Key="CardStyle" TargetType="Border">
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="15" />
+                <Setter Property="Effect" Value="{StaticResource CardShadow}" />
+            </Style>
+
+            <!-- 🔠 Заголовки разделов -->
+            <Style x:Key="SectionHeaderStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
+                <Setter Property="Margin" Value="0 20 0 10" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
