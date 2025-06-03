@@ -3,149 +3,249 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d"
-             d:DesignWidth="1000" d:DesignHeight="600"
-             Background="{DynamicResource MahApps.Brushes.Control.Background}">
+             d:DesignWidth="1000" d:DesignHeight="700"
+             Background="{DynamicResource MahApps.Brushes.Window.Background}">
 
     <UserControl.Resources>
-        <!-- DataGrid Professional Style -->
-        <Style TargetType="DataGrid" x:Key="CleanDataGrid">
+        <SolidColorBrush x:Key="SuccessBrush" Color="#FF28A745"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#FFDC3545"/>
+
+        <DropShadowEffect x:Key="CardShadowEffect" ShadowDepth="1" BlurRadius="8" Color="#000000" Opacity="0.12"/>
+
+        <Style TargetType="Button" x:Key="ModernButtonBaseStyle">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="mah:ControlsHelper.CornerRadius" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="{Binding Path=(mah:ControlsHelper.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Button" x:Key="SuccessButton" BasedOn="{StaticResource ModernButtonBaseStyle}">
+            <Setter Property="Background" Value="{StaticResource SuccessBrush}"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="WarningButton" BasedOn="{StaticResource ModernButtonBaseStyle}">
+            <Setter Property="Background" Value="{StaticResource WarningBrush}"/>
+        </Style>
+
+        <Style TargetType="DataGrid" x:Key="AdaptiveDataGridStyle">
+            <Setter Property="FontSize" Value="13"/>
             <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Border}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Control.Border}" />
             <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}" />
             <Setter Property="HeadersVisibility" Value="Column"/>
-            <Setter Property="GridLinesVisibility" Value="None"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="BorderBrush" Value="#dfe6e9"/>
-            <Setter Property="RowBackground" Value="White"/>
+            <Setter Property="GridLinesVisibility" Value="Horizontal"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource MahApps.Brushes.DataGrid.GridLines}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RowHeight" Value="36"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
             <Setter Property="ColumnHeaderStyle">
                 <Setter.Value>
                     <Style TargetType="DataGridColumnHeader">
-                        <Setter Property="FontWeight" Value="Bold"/>
-                        <Setter Property="Background" Value="#f1f2f6"/>
-                        <Setter Property="Padding" Value="8"/>
-                        <Setter Property="BorderBrush" Value="#dcdde1"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}"/>
+                        <Setter Property="Padding" Value="10,8"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.DataGrid.GridLines}"/>
                         <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                        <Setter Property="Foreground" Value="#2c3e50"/>
+                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Left"/>
                     </Style>
                 </Setter.Value>
             </Setter>
             <Setter Property="RowStyle">
                 <Setter.Value>
                     <Style TargetType="DataGridRow">
-                        <Setter Property="Height" Value="38"/>
                         <Setter Property="VerticalAlignment" Value="Center"/>
-                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                        <Setter Property="BorderBrush" Value="#ecf0f1"/>
-                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}"/>
                         <Style.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#eaf2ff"/>
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.DataGrid.RowMouseOverBackgroundBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Highlight}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="Padding" Value="10,6"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="Border" x:Key="AdaptiveStatCardStyle">
+            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Control.Background}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Control.Border}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="6"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadowEffect}"/>
+        </Style>
     </UserControl.Resources>
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <StackPanel Background="{DynamicResource MahApps.Brushes.Background}" Margin="20">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Background="{DynamicResource MahApps.Brushes.Control.Background}" Margin="30">
 
-            <!-- 👤 Приветствие + Аватар -->
-            <DockPanel Margin="0 0 0 20">
-                <Image x:Name="AvatarImage" Width="60" Height="60" Margin="0,0,10,0"
-                       Stretch="UniformToFill" Visibility="Collapsed"/>
-                <TextBlock x:Name="GreetingTextBlock"
-                           FontSize="24" FontWeight="Bold"
+            <DockPanel Margin="0,0,0,30">
+                <Ellipse x:Name="AvatarEllipse" Width="60" Height="60" Margin="0,0,20,0"
+                         Stroke="{DynamicResource MahApps.Brushes.Accent}" StrokeThickness="2">
+                    <Ellipse.Fill>
+                        <ImageBrush x:Name="AvatarImageBrush" ImageSource="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" Stretch="UniformToFill"/>
+                    </Ellipse.Fill>
+                </Ellipse>
+                <TextBlock x:Name="GreetingTextBlock" Text="Добро пожаловать, Пользователь!"
+                           FontSize="28" FontWeight="Bold"
+                           Foreground="{DynamicResource MahApps.Brushes.Text}"
                            VerticalAlignment="Center"/>
             </DockPanel>
 
-            <!-- КНОПКИ ПРИШЁЛ/УШЁЛ -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 10">
-                <Button Content="Пришёл"
-                        Command="{Binding ArrivedCommand}"
-                        Background="#2ECC71"
-                        Foreground="White"
-                        Padding="10 6" Margin="5" BorderThickness="0" />
-                <Button Content="Ушёл"
-                        Command="{Binding LeftCommand}"
-                        Background="#9B59B6"
-                        Foreground="White"
-                        Padding="10 6" Margin="5" BorderThickness="0" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,30">
+                <Button Content="Пришёл" Command="{Binding ArrivedCommand}" Style="{StaticResource SuccessButton}"/>
+                <Button Content="Ушёл" Command="{Binding LeftCommand}" Style="{StaticResource WarningButton}"/>
             </StackPanel>
 
-            <!-- 📋 Таблица посещаемости -->
-            <GroupBox Header="Посещаемость сотрудников">
+            <Border CornerRadius="6" Background="{DynamicResource MahApps.Brushes.Control.Background}" Margin="0,0,0,10" Effect="{StaticResource CardShadowEffect}">
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <TextBlock Text="📅" FontSize="28" Margin="0,0,10,0"/>
+                    <TextBlock Text="Посещаемость сотрудников" FontSize="24" FontWeight="Bold"
+                               VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}"/>
+                </StackPanel>
+            </Border>
+
+            <Border Background="{DynamicResource MahApps.Brushes.Control.Background}" CornerRadius="6" Padding="10" Effect="{StaticResource CardShadowEffect}" Margin="0,0,0,30">
                 <DataGrid ItemsSource="{Binding TimeRecords}"
-                          Margin="0 10" Height="250"
                           AutoGenerateColumns="False"
                           IsReadOnly="True"
                           CanUserResizeRows="False"
-                          CanUserResizeColumns="False"
-                          CanUserSortColumns="False"
-                          Style="{StaticResource CleanDataGrid}">
-
+                          CanUserResizeColumns="True"
+                          CanUserSortColumns="True"
+                          Style="{StaticResource AdaptiveDataGridStyle}">
                     <DataGrid.Columns>
-                        <!-- Логин сотрудника -->
-                        <DataGridTextColumn Header="Логин"
-                                            Binding="{Binding EmployeeLogin}"
-                                            Width="*" />
-
-                        <!-- Время действия -->
-                        <DataGridTextColumn Header="Время"
-                                            Binding="{Binding Timestamp, StringFormat={}{0:dd.MM.yy HH:mm}}"
-                                            Width="*" />
-
-                        <!-- Действие (Пришёл/Ушёл) -->
-                        <DataGridTextColumn Header="Действие"
-                                            Binding="{Binding Action}"
-                                            Width="*" />
+                        <DataGridTextColumn Header="Логин" Binding="{Binding EmployeeLogin}" Width="*"/>
+                        <DataGridTextColumn Header="Время" Binding="{Binding Timestamp, StringFormat={}{0:dd.MM.yy HH:mm}}" Width="*"/>
+                        <DataGridTextColumn Header="Действие" Binding="{Binding Action}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
-            </GroupBox>
+            </Border>
 
-            <!-- 📦 Статистика (пример) -->
-            <UniformGrid Columns="4" Margin="0 20 0 20">
-                <Border BorderBrush="#dcdde1" BorderThickness="1" Padding="10" Margin="5">
+            <TextBlock Text="Общая статистика" FontSize="18" FontWeight="SemiBold"
+                       Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,0,0,10"/>
+            <UniformGrid Columns="4" Margin="0,0,0,30">
+                <Border Style="{StaticResource AdaptiveStatCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="Проекты" FontWeight="Bold"/>
-                        <TextBlock Text="15" FontSize="24"/>
-                        <TextBlock Text="↑ +4.6% с прошлого месяца" Foreground="Green"/>
+                        <TextBlock Text="Проекты" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="15" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Accent}" Margin="0,5"/>
+                        <TextBlock Text="↑ +4.6% с прошлого месяца" FontSize="12" Foreground="{StaticResource SuccessBrush}"/>
                     </StackPanel>
                 </Border>
-                <!-- ... остальные карточки ... -->
+                <Border Style="{StaticResource AdaptiveStatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Задачи в работе" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="32" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Accent}" Margin="0,5"/>
+                        <TextBlock Text="↓ -2.1% с прошлой недели" FontSize="12" Foreground="{StaticResource WarningBrush}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource AdaptiveStatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Сотрудников онлайн" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="8" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Accent}" Margin="0,5"/>
+                        <TextBlock Text="Данные обновлены сейчас" FontSize="12" Foreground="{DynamicResource MahApps.Brushes.Gray5}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource AdaptiveStatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Общее время" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="128 ч" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Accent}" Margin="0,5"/>
+                        <TextBlock Text="За текущий месяц" FontSize="12" Foreground="{DynamicResource MahApps.Brushes.Gray5}"/>
+                    </StackPanel>
+                </Border>
             </UniformGrid>
 
-            <!-- 📈 Заглушка под график -->
-            <GroupBox Header="Аналитика">
-                <Grid Height="160">
-                    <TextBlock Text="📈 Revenue Graph Placeholder"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Foreground="#BDC3C7" FontSize="16"/>
-                </Grid>
-            </GroupBox>
+            <Grid Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
 
-            <!-- 🏆 Лучшие сотрудники -->
-            <GroupBox Header="Лучшие сотрудники" Margin="0,10,0,0">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Image Width="30" Height="30" Source="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" Margin="0,0,10,0"/>
-                        <TextBlock Text="Emily Carter — 20 задач" VerticalAlignment="Center"/>
+                <Border Background="{DynamicResource MahApps.Brushes.Control.Background}" CornerRadius="6" Padding="15" Effect="{StaticResource CardShadowEffect}" Grid.Column="0">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock Text="🏆" FontSize="24" Margin="0,0,10,0"/>
+                            <TextBlock Text="Лучшие сотрудники" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <ItemsControl ItemsSource="{Binding TopEmployees}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}" BorderThickness="0,0,0,1" Padding="0,10">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Ellipse Width="40" Height="40" Margin="0,0,15,0">
+                                                <Ellipse.Fill>
+                                                    <ImageBrush ImageSource="{Binding AvatarUrl}" Stretch="UniformToFill"/>
+                                                </Ellipse.Fill>
+                                            </Ellipse>
+                                            <StackPanel VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Name}" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding TaskCount, StringFormat='{}{0} задач'}" FontSize="12" Foreground="{DynamicResource MahApps.Brushes.Gray5}"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Image Width="30" Height="30" Source="https://cdn-icons-png.flaticon.com/512/3135/3135789.png" Margin="0,0,10,0"/>
-                        <TextBlock Text="Michael Brown — 18 задач" VerticalAlignment="Center"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,5">
-                        <Image Width="30" Height="30" Source="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" Margin="0,0,10,0"/>
-                        <TextBlock Text="Olivia Wilson — 14 задач" VerticalAlignment="Center"/>
-                    </StackPanel>
-                </StackPanel>
-            </GroupBox>
+                </Border>
 
+                <Border Background="{DynamicResource MahApps.Brushes.Control.Background}" CornerRadius="6" Padding="15" Effect="{StaticResource CardShadowEffect}" Grid.Column="2">
+                    <StackPanel VerticalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <TextBlock Text="📈" FontSize="24" Margin="0,0,10,0"/>
+                            <TextBlock Text="Аналитика" FontSize="18" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <Grid MinHeight="200" Background="{DynamicResource MahApps.Brushes.Control.Background}">
+                            <TextBlock Text="📈 График доходов (Заглушка)" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Gray5}" FontSize="16" TextWrapping="Wrap"/>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
