@@ -9,5 +9,6 @@
         public string Email { get; set; }
         public string Role { get; set; }
         public string AvatarUrl { get; set; }
+        public bool IsActive { get; internal set; }
     }
 }

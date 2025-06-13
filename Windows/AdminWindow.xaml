@@ -1,104 +1,154 @@
-﻿<mah:MetroWindow x:Class="Argus_WPF.Windows.AdminWindow"
-                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 Title="Администрация"
-                 WindowStartupLocation="CenterScreen"
-                 Height="600"
-                 Width="800"
-                 Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                 Loaded="MetroWindow_Loaded">
+﻿<controls:MetroWindow
+    x:Class="Argus_WPF.Windows.AdminWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    mc:Ignorable="d"
+    Title="Администрирование сотрудников"
+    Height="650"
+    Width="1000"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}">
 
-    <!-- Основная сетка -->
-    <Grid Margin="20">
+    <!-- ===================== Resources ===================== -->
+    <controls:MetroWindow.Resources>
+        <!-- Delete button style -->
+        <Style x:Key="DeleteButtonStyle"
+               TargetType="Button"
+               BasedOn="{StaticResource MahApps.Styles.Button.Chromeless}">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Gray5}"/>
+            <Setter Property="ToolTip" Value="Удалить"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Red}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- DataGrid header style -->
+        <Style x:Key="AdminDataGridHeaderStyle"
+               TargetType="DataGridColumnHeader"
+               BasedOn="{StaticResource MahApps.Styles.DataGridColumnHeader}">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="10,0,10,10"/>
+        </Style>
+
+        <!-- DataGrid cell style -->
+        <Style x:Key="AdminDataGridCellStyle"
+               TargetType="DataGridCell"
+               BasedOn="{StaticResource MahApps.Styles.DataGridCell}">
+            <!-- Левые/правые = 10, верх/низ = 8 -->
+            <Setter Property="Padding" Value="10,8,10,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <!-- DataGrid row style -->
+        <Style x:Key="AdminDataGridRowStyle"
+               TargetType="DataGridRow"
+               BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+            <Setter Property="MinHeight" Value="48"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsActive}" Value="False">
+                    <Setter Property="Opacity" Value="0.5"/>
+                </DataTrigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent20}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.Text}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </controls:MetroWindow.Resources>
+
+    <!-- ===================== Layout ===================== -->
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <!-- Шапка -->
             <RowDefinition Height="Auto"/>
-            <!-- Секция с таблицей -->
             <RowDefinition Height="*"/>
-            <!-- Нижняя панель с кнопками -->
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Шапка (с декоративной обводкой) -->
-        <Border Grid.Row="0"
-                Margin="0,0,0,15"
-                CornerRadius="6"
-                Background="{DynamicResource MahApps.Brushes.Control.Background}">
-            <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock Text="🛡"
-                           FontSize="28"
-                           Margin="0,0,10,0"/>
-                <TextBlock Text="Администрация"
-                           FontSize="24"
-                           FontWeight="Bold"
-                           VerticalAlignment="Center"
-                           Foreground="{DynamicResource MahApps.Brushes.Text}"/>
-            </StackPanel>
-        </Border>
+        <!-- ===== Toolbar ===== -->
+        <DockPanel Grid.Row="0" Margin="0,0,0,10">
+            <TextBox x:Name="SearchBox"
+                     Width="300"
+                     Style="{StaticResource MahApps.Styles.TextBox}"
+                     Text="{Binding SearchQuery, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     controls:TextBoxHelper.Watermark="Поиск по имени или роли..."
+                     VerticalAlignment="Center"
+                     DockPanel.Dock="Left"/>
 
-        <!-- Таблица сотрудников (Border для красивой «карточки») -->
-        <Border Grid.Row="1"
-                Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                CornerRadius="6"
-                Padding="10">
-            <DataGrid x:Name="AdminEmployeeGrid"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      HeadersVisibility="Column"
-                      RowHeight="36"
-                      BorderThickness="0">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID"
-                                        Binding="{Binding Id}"
-                                        Width="Auto"
-                                        IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Имя"
-                                        Binding="{Binding Name}"
-                                        Width="*"
-                                        IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Роль"
-                                        Binding="{Binding Role}"
-                                        Width="*"
-                                        IsReadOnly="True"/>
+            <Button Content="Добавить сотрудника"
+                    Style="{StaticResource MahApps.Styles.Button.Dialogs.Accent}"
+                    Command="{Binding AddEmployeeCommand}"
+                    DockPanel.Dock="Right"/>
+        </DockPanel>
 
-                    <DataGridTemplateColumn Header="Изменить роль"
-                                            Width="180">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Role}"
-                                           VerticalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                        <DataGridTemplateColumn.CellEditingTemplate>
-                            <DataTemplate>
-                                <ComboBox ItemsSource="{Binding AvailableRoles}"
-                                          SelectedItem="{Binding Role, Mode=TwoWay}"
-                                          IsEnabled="{Binding IsRoleEditable}"
-                                          VerticalContentAlignment="Center"
-                                          Background="{DynamicResource MahApps.Brushes.Control.Background}"
-                                          Foreground="{DynamicResource MahApps.Brushes.Text}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellEditingTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
+        <!-- ===== DataGrid ===== -->
+        <DataGrid ItemsSource="{Binding Employees}"
+                  SelectedItem="{Binding SelectedEmployee}"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  IsReadOnly="True"
+                  GridLinesVisibility="None"
+                  HeadersVisibility="Column"
+                  Background="Transparent"
+                  BorderThickness="0"
+                  Grid.Row="1"
+                  ColumnHeaderStyle="{StaticResource AdminDataGridHeaderStyle}"
+                  CellStyle="{StaticResource AdminDataGridCellStyle}"
+                  RowStyle="{StaticResource AdminDataGridRowStyle}">
 
-        <!-- Нижняя панель с кнопкой добавления сотрудника -->
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Left"
-                    Margin="0,10,0,0">
-            <Button x:Name="AddEmployeeButton"
-                    Content="Добавить сотрудника"
-                    Width="200"
-                    Padding="10"
-                    Background="{DynamicResource MahApps.Brushes.Accent}"
-                    Foreground="{DynamicResource MahApps.Brushes.Text}"
-                    BorderThickness="0"
-                    FontWeight="SemiBold"
-                    Click="AddEmployeeButton_Click"/>
-        </StackPanel>
+            <DataGrid.Columns>
+                <!-- ID -->
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding Id}"
+                                    Width="Auto"/>
+
+                <!-- ФИО -->
+                <DataGridTextColumn Header="ФИО"
+                                    Binding="{Binding Name}"
+                                    MinWidth="200"
+                                    Width="*"/>
+
+                <!-- Активен -->
+                <DataGridTemplateColumn Header="Активен" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <controls:ToggleSwitch IsOn="{Binding IsActive}"
+                                                   OnContent="" OffContent=""
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center"
+                                                   IsEnabled="False"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <!-- Роль -->
+                <DataGridTextColumn Header="Роль"
+                                    Binding="{Binding Role}"
+                                    Width="*"/>
+
+                <!-- Удалить -->
+                <DataGridTemplateColumn Header="" Width="Auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource DeleteButtonStyle}"
+                                    Command="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                    CommandParameter="{Binding}">
+                                <Path Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
+                                      Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"
+                                      Stretch="Uniform"
+                                      Width="16"
+                                      Height="16"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
-</mah:MetroWindow>
+</controls:MetroWindow>
