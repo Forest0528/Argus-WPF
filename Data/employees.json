@@ -110,5 +110,19 @@
     "LastLogin": "2025-04-16T09:30:00",
     "CreatedBy": "admin",
     "UpdatedAt": "2025-04-16T10:20:00"
+  },
+  {
+    "Id": "009",
+    "Name": "Сардор",
+    "Login": "s.sobidjonov",
+    "Password": "123",
+    "Role": "Веб-разработчик",
+    "Mail": "sabidjanovv@gmail.com",
+    "AvatarUrl": "",
+    "IsActive": true,
+    "CreatedAt": "2024-12-08T13:00:00",
+    "LastLogin": "2025-04-16T09:30:00",
+    "CreatedBy": "admin",
+    "UpdatedAt": "2025-04-16T10:20:00"
   }
 ]
